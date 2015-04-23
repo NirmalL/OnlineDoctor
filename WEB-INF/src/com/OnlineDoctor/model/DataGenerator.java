@@ -4,17 +4,21 @@ import java.sql.*;
 
 public class DataGenerator {
    static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static String DB_URL = "jdbc:mysql://ce-414/bmidatabase";
+   // static String DB_URL = "jdbc:mysql://ce-414/bmidatabase";
+   static String DB_URL = "jdbc:mysql://localhost/bmidatabase";
 
-   static String USER = "e11000"; //replace this with your registration number
-   static String PASS = "";
+   static String USER = "root"; //replace this with your registration number
+   // static String USER = "e11000"; //replace this with your registration number
+   // static String PASS = "";
+   static String PASS = "root";
    static Connection conn = null;
 
 public DataGenerator() throws Exception
 {
+        Class.forName("com.mysql.jdbc.Driver"); // ^^
 if(conn == null)
         	conn = DriverManager.getConnection(DB_URL,USER,PASS);
-        Class.forName("com.mysql.jdbc.Driver");
+        // Class.forName("com.mysql.jdbc.Driver");
 }
 
 
@@ -35,6 +39,14 @@ if(conn == null)
 		return a string that contains the current BMI value 
 		and then insert a new entry containing the calculated BMI.
 */
+		float __bmi=getBMI(name);
+		if (__bmi>0F) {
+			answer = "old: " + __bmi + " new: " + bmi + " diff: " + ((bmi>__bmi)?(bmi-__bmi):(__bmi-bmi));
+		} else {
+			insertBMI(name, bmi);
+			answer = "new: " + bmi;
+		}
+
 	return answer; 
 }
 
@@ -83,7 +95,7 @@ public float getBMI(String name)
 		if(rs.next())
 			return rs.getFloat("bmi");
 		else
-			return 0F;	
+			return 0F;	// null result	
 	}
 	catch(Exception ex)
 	{

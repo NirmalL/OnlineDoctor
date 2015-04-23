@@ -1,0 +1,16 @@
+#!/bin/bash
+pwd
+#javac -cp ./WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar:./WEB-INF/lib/javax.servlet-api.jar ./WEB-INF/src/com/OnlineDoctor/model/*.java
+#javac -cp ./WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar:./WEB-INF/lib/javax.servlet-api.jar ./WEB-INF/src/com/OnlineDoctor/web/*.java
+
+javac -cp ./WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar:./WEB-INF/lib/javax.servlet-api.jar ./WEB-INF/src/com/OnlineDoctor/*/*.java
+
+# -d classes/
+#mkdir ./WEB-INF/classes/web
+#mkdir ./WEB-INF/classes/model
+mv ./WEB-INF/src/com/OnlineDoctor/web/*.class ./WEB-INF/classes/com/OnlineDoctor/web/
+mv ./WEB-INF/src/com/OnlineDoctor/model/*.class ./WEB-INF/classes/com/OnlineDoctor/model/
+../../bin/shutdown.sh
+../../bin/startup.sh
+
+## mysql -h 10.40.18.167 -u e11237
